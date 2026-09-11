@@ -4,10 +4,34 @@ const taskList = document.getElementById("taskList");
 const taskCount = document.getElementById("taskCount");
 const emptyMessage = document.getElementById("emptyMessage");
 
-let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let tasks = [];
+
+try {
+    tasks = JSON.parse(localStorage.getItem("todoTasks")) || [];
+} catch (error) {
+    tasks = [];
+}
 
 function saveTasks() {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("todoTasks", JSON.stringify(tasks));
+}
+
+function updateTaskCount() {
+    const totalTasks = tasks.length;
+
+    const completedTasks = tasks.filter(function (task) {
+        return task.completed;
+    }).length;
+
+    if (totalTasks === 0) {
+        taskCount.textContent = "0 tasks";
+        emptyMessage.style.display = "block";
+    } else {
+        taskCount.textContent =
+            `${totalTasks} ${totalTasks === 1 ? "task" : "tasks"} · ${completedTasks} completed`;
+
+        emptyMessage.style.display = "none";
+    }
 }
 
 function renderTasks() {
@@ -21,11 +45,11 @@ function renderTasks() {
             li.classList.add("completed");
         }
 
-        const taskSpan = document.createElement("span");
-        taskSpan.className = "task-text";
-        taskSpan.textContent = task.text;
+        const taskText = document.createElement("span");
+        taskText.className = "task-text";
+        taskText.textContent = task.text;
 
-        taskSpan.addEventListener("click", function () {
+        taskText.addEventListener("click", function () {
             task.completed = !task.completed;
             saveTasks();
             renderTasks();
@@ -36,17 +60,16 @@ function renderTasks() {
         deleteButton.textContent = "Delete";
 
         deleteButton.addEventListener("click", function () {
-            tasks = tasks.filter(function (currentTask) {
-                return currentTask.id !== task.id;
+            tasks = tasks.filter(function (item) {
+                return item.id !== task.id;
             });
 
             saveTasks();
             renderTasks();
         });
 
-        li.appendChild(taskSpan);
+        li.appendChild(taskText);
         li.appendChild(deleteButton);
-
         taskList.appendChild(li);
     });
 
@@ -54,44 +77,25 @@ function renderTasks() {
 }
 
 function addTask() {
-    const taskText = taskInput.value.trim();
+    const text = taskInput.value.trim();
 
-    if (taskText === "") {
+    if (text === "") {
         alert("Please enter a task!");
         return;
     }
 
     const newTask = {
         id: Date.now(),
-        text: taskText,
+        text: text,
         completed: false
     };
 
     tasks.push(newTask);
-
     saveTasks();
     renderTasks();
 
     taskInput.value = "";
     taskInput.focus();
-}
-
-function updateTaskCount() {
-    const totalTasks = tasks.length;
-
-    const completedCount = tasks.filter(function (task) {
-        return task.completed;
-    }).length;
-
-    if (totalTasks === 0) {
-        taskCount.textContent = "0 tasks";
-        emptyMessage.style.display = "block";
-    } else {
-        taskCount.textContent =
-            `${totalTasks} ${totalTasks === 1 ? "task" : "tasks"} · ${completedCount} completed`;
-
-        emptyMessage.style.display = "none";
-    }
 }
 
 addTaskButton.addEventListener("click", addTask);
