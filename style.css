@@ -42,10 +42,6 @@ h1 {
     color: #111827;
 }
 
-h1 span {
-    font-size: 30px;
-}
-
 .subtitle {
     margin: 12px 0 0;
     color: #6b7280;
@@ -66,7 +62,6 @@ input {
     border-radius: 10px;
     font-size: 15px;
     outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 input:focus {
@@ -83,15 +78,10 @@ button {
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
 }
 
 button:hover {
     background: #4f46e5;
-}
-
-button:active {
-    transform: scale(0.97);
 }
 
 .task-header {
@@ -128,12 +118,6 @@ ul {
     border-radius: 12px;
     padding: 14px 15px;
     margin-bottom: 12px;
-    transition: background 0.2s, border-color 0.2s;
-}
-
-.task-item:hover {
-    background: #f3f4f6;
-    border-color: #c7d2fe;
 }
 
 .task-text {
@@ -178,7 +162,6 @@ ul {
 
     .app-card {
         padding: 25px 20px;
-        border-radius: 16px;
     }
 
     h1 {
@@ -191,9 +174,5 @@ ul {
 
     .input-area button {
         width: 100%;
-    }
-
-    .task-item {
-        align-items: flex-start;
     }
 }
