@@ -8,17 +8,35 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>My To-Do List</h1>
-        <p class="subtitle">Organize your day, one task at a time.</p>
+    <main class="app-card">
+
+        <div class="app-header">
+            <p class="eyebrow">MY PRODUCTIVITY SPACE</p>
+            <h1>My To-Do List <span>📝</span></h1>
+            <p class="subtitle">Organize your day, one task at a time.</p>
+        </div>
 
         <div class="input-area">
-            <input type="text" id="taskInput" placeholder="What needs to be done?">
-            <button onclick="addTask()">Add Task</button>
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="What needs to be done?"
+            >
+            <button id="addTaskButton">Add Task</button>
+        </div>
+
+        <div class="task-header">
+            <h2>Tasks</h2>
+            <span id="taskCount">0 tasks</span>
         </div>
 
         <ul id="taskList"></ul>
-    </div>
+
+        <p id="emptyMessage" class="empty-message">
+            No tasks yet. Add your first task above ✨
+        </p>
+
+    </main>
 
     <script src="script.js"></script>
 </body>
