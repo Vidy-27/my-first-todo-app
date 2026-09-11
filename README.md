@@ -1,23 +1,61 @@
-# My First To-Do App 📝
+# My To-Do App 
 
-This is my first project while exploring web development.
+A simple and responsive To-Do List web application built using HTML, CSS, and JavaScript.
 
-### About the Project
+This project was created as part of my hands-on learning journey to understand web development fundamentals, DOM manipulation, event handling, and browser storage.
 
-A simple to-do list designed to help me practice coding and learn how websites work.
+## Live Demo
 
-### Planned Features
+[View the Live Website](https://vidy-27.github.io/my-first-todo-app/)
 
-- Add tasks
+## Features
+
+- Add new tasks
 - Mark tasks as completed
 - Delete tasks
+- Save tasks using browser localStorage
+- Tasks remain available after refreshing the page
+- Press Enter to add a task
+- Responsive design for different screen sizes
+- Task counter showing total and completed tasks
 
-### Learning Goals
+## Technologies Used
 
-- Understand basic HTML, CSS, and JavaScript
-- Practice building a small project
-- Learn how to use GitHub
+- HTML5
+- CSS3
+- JavaScript
+- Browser localStorage
+- GitHub Pages
 
----
+## How to Use
 
-Built as part of my learning journey 🌱
+1. Enter a task in the input field.
+2. Click the "Add Task" button or press Enter.
+3. Click a task to mark it as completed.
+4. Click "Delete" to remove a task.
+5. Refresh the page—the saved tasks will remain in the browser.
+
+## What I Learned
+
+Through this project, I practiced:
+
+- Creating webpage structure with HTML
+- Styling layouts with CSS
+- Using JavaScript to make a webpage interactive
+- Handling button clicks and keyboard events
+- Creating and updating HTML elements dynamically
+- Working with arrays and objects
+- Using localStorage to save data
+- Deploying a website using GitHub Pages
+
+## Future Improvements
+
+- Add task filters
+- Add dark mode
+- Add task deadlines
+- Add edit-task functionality
+- Add categories or priorities
+
+## Author
+
+Created by Vidya as part of my technology learning journey.
