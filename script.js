@@ -4,6 +4,55 @@ const taskList = document.getElementById("taskList");
 const taskCount = document.getElementById("taskCount");
 const emptyMessage = document.getElementById("emptyMessage");
 
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function renderTasks() {
+    taskList.innerHTML = "";
+
+    tasks.forEach(function (task) {
+        const li = document.createElement("li");
+        li.className = "task-item";
+
+        if (task.completed) {
+            li.classList.add("completed");
+        }
+
+        const taskSpan = document.createElement("span");
+        taskSpan.className = "task-text";
+        taskSpan.textContent = task.text;
+
+        taskSpan.addEventListener("click", function () {
+            task.completed = !task.completed;
+            saveTasks();
+            renderTasks();
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "delete-button";
+        deleteButton.textContent = "Delete";
+
+        deleteButton.addEventListener("click", function () {
+            tasks = tasks.filter(function (currentTask) {
+                return currentTask.id !== task.id;
+            });
+
+            saveTasks();
+            renderTasks();
+        });
+
+        li.appendChild(taskSpan);
+        li.appendChild(deleteButton);
+
+        taskList.appendChild(li);
+    });
+
+    updateTaskCount();
+}
+
 function addTask() {
     const taskText = taskInput.value.trim();
 
@@ -12,44 +61,27 @@ function addTask() {
         return;
     }
 
-    const li = document.createElement("li");
-    li.className = "task-item";
+    const newTask = {
+        id: Date.now(),
+        text: taskText,
+        completed: false
+    };
 
-    const taskSpan = document.createElement("span");
-    taskSpan.className = "task-text";
-    taskSpan.textContent = taskText;
+    tasks.push(newTask);
 
-    taskSpan.addEventListener("click", function () {
-        li.classList.toggle("completed");
-        updateTaskCount();
-    });
-
-    const deleteButton = document.createElement("button");
-    deleteButton.className = "delete-button";
-    deleteButton.textContent = "Delete";
-
-    deleteButton.addEventListener("click", function () {
-        li.remove();
-        updateTaskCount();
-    });
-
-    li.appendChild(taskSpan);
-    li.appendChild(deleteButton);
-
-    taskList.appendChild(li);
+    saveTasks();
+    renderTasks();
 
     taskInput.value = "";
     taskInput.focus();
-
-    updateTaskCount();
 }
 
 function updateTaskCount() {
-    const tasks = document.querySelectorAll(".task-item");
-    const completedTasks = document.querySelectorAll(".task-item.completed");
-
     const totalTasks = tasks.length;
-    const completedCount = completedTasks.length;
+
+    const completedCount = tasks.filter(function (task) {
+        return task.completed;
+    }).length;
 
     if (totalTasks === 0) {
         taskCount.textContent = "0 tasks";
@@ -70,4 +102,4 @@ taskInput.addEventListener("keydown", function (event) {
     }
 });
 
-updateTaskCount();
+renderTasks();
